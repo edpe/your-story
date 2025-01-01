@@ -68,7 +68,7 @@ export default function Home() {
             ] + " . . .";
 
           return (
-            <div key={index} className={styles.scene}>
+            <div key={scene.alt} className={styles.scene}>
               <div className={styles.vignetteGradient}>
                 <Image
                   src={scene.src}
