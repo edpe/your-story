@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import styles from "./page.module.css";
 import {
   scenesData,
@@ -39,6 +40,8 @@ export default function Home() {
   const [ending, setEnding] = useState("");
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     // Shuffle the scenes array
     scenesData.sort(() => Math.random() - 0.5);
 
@@ -64,8 +67,27 @@ export default function Home() {
 
   return (
     <main className="relative overflow-hidden">
-      <h1 className={styles.title}>{title}</h1>
-      <div className={styles.introduction}>{introduction}</div>
+      {/* Main title of the story */}
+      <motion.h1
+        className={styles.title}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2 }}
+      >
+        {title}
+      </motion.h1>
+
+      {/* Story introduction text */}
+      <motion.div
+        className={styles.introduction}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2, delay: 0.5 }}
+      >
+        {introduction}
+      </motion.div>
+
+      {/* Container for all story scenes */}
       <div className={styles.imageContainer}>
         {scenes.map((scene, index) => {
           const nextScene = scenes[(index + 1) % scenes.length];
@@ -85,7 +107,15 @@ export default function Home() {
             ];
 
           return (
-            <div key={scene.alt} className={styles.scene}>
+            <motion.div
+              key={scene.alt}
+              className={styles.scene}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 2, delay: 1 }}
+            >
+              {/* Scene image with vignette effect */}
               <div className={styles.vignetteGradient}>
                 <Image
                   src={scene.src}
@@ -97,32 +127,60 @@ export default function Home() {
                   layout="responsive"
                   style={{ width: "100%", height: "auto" }}
                 />
-                <div
+
+                {/* Overlay text on the scene image */}
+                <motion.div
                   className={
                     index % 2 === 0
                       ? styles.overlayTextLeft
                       : styles.overlayTextRight
                   }
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 4 }}
                 >
+                  {/* Main scene text */}
                   <div>{scene.texts[index % scene.texts.length]}</div>
+                  {/* Additional reading text if available */}
                   {randomReading && (
                     <div>
                       <br />
                       {randomReading}
                     </div>
                   )}
-                </div>
+                </motion.div>
               </div>
+
+              {/* Transition text between scenes */}
               {index < scenes.length - 1 && (
                 <div className={styles.verticalSpacing}>
-                  <div className={styles.transitionText}>{transitionText}</div>
+                  <motion.div
+                    className={styles.transitionText}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2 }}
+                  >
+                    {transitionText}
+                  </motion.div>
                 </div>
               )}
-            </div>
+            </motion.div>
           );
         })}
       </div>
-      <div className={styles.ending}>{ending}</div>
+
+      {/* Story ending text */}
+      <motion.div
+        className={styles.ending}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 2 }}
+      >
+        {ending}
+      </motion.div>
     </main>
   );
 }

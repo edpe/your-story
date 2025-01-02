@@ -186,7 +186,7 @@ a.secondary {
 }
 
 .verticalSpacing {
-  height: 200px;
+  height: 400px;
   display: flex;
   align-items: center; /* Center contents vertically */
   justify-content: center; /* Center contents horizontally */
@@ -197,7 +197,7 @@ a.secondary {
   position: absolute;
   top: 10%;
   color: white;
-  font-size: 2vw; /* Responsive font size */
+  font-size: 2.5vw; /* Responsive font size */
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   pointer-events: none;
@@ -206,17 +206,17 @@ a.secondary {
 }
 
 .overlayTextLeft {
-  left: 10%;
+  left: 5%;
 }
 
 .overlayTextRight {
-  right: 10%;
+  right: 5%;
 }
 
 .transitionText {
   text-align: center;
   color: white;
-  font-size: 2vw; /* Responsive font size */
+  font-size: 3vw; /* Responsive font size */
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   pointer-events: none;
@@ -242,19 +242,19 @@ a.secondary {
   display: flex;
   align-items: center; /* Center vertically */
   justify-content: center; /* Center horizontally */
-  padding: 20px 0; /* Add some padding */
+  padding: 100px 0; /* Add some padding */
 }
 
 .title {
   text-align: center;
   color: white;
-  font-size: 8vw; /* Bigger font size for the title */
+  font-size:6vw; /* Bigger font size for the title */
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   pointer-events: none;
   font-family: 'Great Vibes', cursive;
   max-width: 90vw; /* Constrict text to half the viewport width */
-  margin: 20px auto; /* Center the text with some margin */
+  margin: 100px auto; /* Center the text with some margin */
   padding: 20px 0; /* Add some padding */
 }
 
