@@ -36,6 +36,9 @@ export default function Home() {
     // Shuffle the scenes array
     scenesData.sort(() => Math.random() - 0.5);
 
+    // Select 5 random scenes
+    const selectedScenes = scenesData.slice(0, 5);
+
     // Select a random title
     const randomTitle =
       abstractTitles[Math.floor(Math.random() * abstractTitles.length)];
@@ -47,7 +50,7 @@ export default function Home() {
     // Select a random ending
     const randomEnding = endings[Math.floor(Math.random() * endings.length)];
 
-    setScenes(scenesData);
+    setScenes(selectedScenes);
     setTitle(randomTitle);
     setIntroduction(randomIntroduction);
     setEnding(randomEnding);
