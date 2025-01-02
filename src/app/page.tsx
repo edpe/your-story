@@ -12,6 +12,7 @@ import {
   sceneReadings,
 } from "./storyContent";
 import { random } from "gsap";
+import QuestionFlow from "./QuestionFlow";
 
 type Scene = {
   src: string;
@@ -39,6 +40,26 @@ export default function Home() {
   const [introduction, setIntroduction] = useState("");
   const [ending, setEnding] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [showQuestions, setShowQuestions] = useState(false);
+  const [showStory, setShowStory] = useState(false);
+
+  useEffect(() => {
+    // Initial loading animation
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      setShowQuestions(true);
+    }, 6000); // Matches the ripple animation duration
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleQuestionsComplete = (
+    answers: Array<{ question: string; answer: string }>
+  ) => {
+    setShowQuestions(false);
+    setShowStory(true);
+    // Here you would generate the story based on the answers
+  };
 
   useEffect(() => {
     // Show loading screen for 3 seconds (matches animation duration)
@@ -81,120 +102,126 @@ export default function Home() {
 
   return (
     <main className="relative overflow-hidden">
-      {/* Main title of the story */}
-      <motion.h1
-        className={styles.title}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2 }}
-      >
-        {title}
-      </motion.h1>
+      {showQuestions && <QuestionFlow onComplete={handleQuestionsComplete} />}
 
-      {/* Story introduction text */}
-      <motion.div
-        className={styles.introduction}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2, delay: 0.5 }}
-      >
-        {introduction}
-      </motion.div>
+      {showStory && (
+        <>
+          {/* Main title of the story */}
+          <motion.h1
+            className={styles.title}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2 }}
+          >
+            {title}
+          </motion.h1>
 
-      {/* Container for all story scenes */}
-      <div className={styles.imageContainer}>
-        {scenes.map((scene, index) => {
-          const nextScene = scenes[(index + 1) % scenes.length];
-          const transitionText =
-            scene.transitionText[
-              nextScene.alt
-                .toLowerCase()
-                .replace(/ /g, "-") as keyof Scene["transitionText"]
-            ] + " . . .";
-          const readingKey = toCamelCase(
-            scene.alt.toLowerCase().replace(/ /g, "-")
-          ) as keyof typeof sceneReadings;
-          const randomReading =
-            sceneReadings[readingKey] &&
-            sceneReadings[readingKey][
-              Math.floor(Math.random() * sceneReadings[readingKey].length)
-            ];
+          {/* Story introduction text */}
+          <motion.div
+            className={styles.introduction}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2, delay: 0.5 }}
+          >
+            {introduction}
+          </motion.div>
 
-          return (
-            <motion.div
-              key={scene.alt}
-              className={styles.scene}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 2, delay: 1 }}
-            >
-              {/* Scene image with vignette effect */}
-              <div className={styles.vignetteGradient}>
-                <Image
-                  src={scene.src}
-                  alt={scene.alt}
-                  width={800}
-                  height={600}
-                  loading="lazy"
-                  className={styles.imageWithMargin}
-                  layout="responsive"
-                  style={{ width: "100%", height: "auto" }}
-                />
+          {/* Container for all story scenes */}
+          <div className={styles.imageContainer}>
+            {scenes.map((scene, index) => {
+              const nextScene = scenes[(index + 1) % scenes.length];
+              const transitionText =
+                scene.transitionText[
+                  nextScene.alt
+                    .toLowerCase()
+                    .replace(/ /g, "-") as keyof Scene["transitionText"]
+                ] + " . . .";
+              const readingKey = toCamelCase(
+                scene.alt.toLowerCase().replace(/ /g, "-")
+              ) as keyof typeof sceneReadings;
+              const randomReading =
+                sceneReadings[readingKey] &&
+                sceneReadings[readingKey][
+                  Math.floor(Math.random() * sceneReadings[readingKey].length)
+                ];
 
-                {/* Overlay text on the scene image */}
+              return (
                 <motion.div
-                  className={
-                    index % 2 === 0
-                      ? styles.overlayTextLeft
-                      : styles.overlayTextRight
-                  }
+                  key={scene.alt}
+                  className={styles.scene}
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 4 }}
+                  transition={{ duration: 2, delay: 1 }}
                 >
-                  {/* Main scene text */}
-                  <div>{scene.texts[index % scene.texts.length]}</div>
-                  {/* Additional reading text if available */}
-                  {randomReading && (
-                    <div>
-                      <br />
-                      {randomReading}
+                  {/* Scene image with vignette effect */}
+                  <div className={styles.vignetteGradient}>
+                    <Image
+                      src={scene.src}
+                      alt={scene.alt}
+                      width={800}
+                      height={600}
+                      loading="lazy"
+                      className={styles.imageWithMargin}
+                      layout="responsive"
+                      style={{ width: "100%", height: "auto" }}
+                    />
+
+                    {/* Overlay text on the scene image */}
+                    <motion.div
+                      className={
+                        index % 2 === 0
+                          ? styles.overlayTextLeft
+                          : styles.overlayTextRight
+                      }
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 4 }}
+                    >
+                      {/* Main scene text */}
+                      <div>{scene.texts[index % scene.texts.length]}</div>
+                      {/* Additional reading text if available */}
+                      {randomReading && (
+                        <div>
+                          <br />
+                          {randomReading}
+                        </div>
+                      )}
+                    </motion.div>
+                  </div>
+
+                  {/* Transition text between scenes */}
+                  {index < scenes.length - 1 && (
+                    <div className={styles.verticalSpacing}>
+                      <motion.div
+                        className={styles.transitionText}
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.2 }}
+                      >
+                        {transitionText}
+                      </motion.div>
                     </div>
                   )}
                 </motion.div>
-              </div>
+              );
+            })}
+          </div>
 
-              {/* Transition text between scenes */}
-              {index < scenes.length - 1 && (
-                <div className={styles.verticalSpacing}>
-                  <motion.div
-                    className={styles.transitionText}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.2 }}
-                  >
-                    {transitionText}
-                  </motion.div>
-                </div>
-              )}
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {/* Story ending text */}
-      <motion.div
-        className={styles.ending}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 2 }}
-      >
-        {ending}
-      </motion.div>
+          {/* Story ending text */}
+          <motion.div
+            className={styles.ending}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 2 }}
+          >
+            {ending}
+          </motion.div>
+        </>
+      )}
     </main>
   );
 }

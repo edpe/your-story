@@ -13,6 +13,78 @@ type Scene = {
     "the-gateway"?: string;
   };
 };
+export const oracleQuestions = [
+  {
+    question: "What do you seek on your journey?",
+    options: [
+      "Clarity and understanding",
+      "Change and transformation",
+      "Answers to unspoken questions",
+      "A connection to something greater",
+    ],
+  },
+  {
+    question: "What is calling to you most strongly right now?",
+    options: [
+      "The unknown",
+      "A memory you can’t forget",
+      "A dream you want to explore",
+      "A truth waiting to be uncovered",
+    ],
+  },
+  {
+    question: "What guides your steps forward?",
+    options: ["Curiosity", "Courage", "Intuition", "A sense of purpose"],
+  },
+  {
+    question: "What do you feel you’ve left behind?",
+    options: [
+      "Something unresolved",
+      "A piece of yourself",
+      "A fleeting moment of joy",
+      "A weight you’re ready to let go of",
+    ],
+  },
+  {
+    question: "Which path feels most like yours?",
+    options: [
+      "One that twists and turns unpredictably",
+      "A steady road toward the horizon",
+      "A path lit by faint and shifting light",
+      "A hidden trail through shadow and silence",
+    ],
+  },
+  {
+    question: "What do you hope to find on this journey?",
+    options: [
+      "A hidden truth",
+      "Strength you didn’t know you had",
+      "A sense of belonging",
+      "The ability to move forward",
+    ],
+  },
+  {
+    question: "Which archetype feels most like you right now?",
+    options: [
+      "The Seeker: Always searching, always curious",
+      "The Healer: Bringing light to shadows and mending what is broken",
+      "The Dreamer: Guided by imagination and boundless possibility",
+      "The Protector: Strong, steadfast, and a guardian of others",
+    ],
+  },
+  {
+    question: "How do you feel as you begin?",
+    options: ["Hopeful", "Curious", "Uncertain", "Quietly determined"],
+  },
+  {
+    question: "What do you think you will need most on this journey?",
+    options: ["Patience", "Resilience", "Openness", "Focus"],
+  },
+  {
+    question: "Which word resonates most with you?",
+    options: ["Reflection", "Transformation", "Connection", "Revelation"],
+  },
+];
 
 export const abstractTitles = [
   "The Shape of What Is Hidden",
