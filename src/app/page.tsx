@@ -10,6 +10,7 @@ import {
   introductions,
   endings,
   sceneReadings,
+  oracleQuestions,
 } from "./storyContent";
 import { random } from "gsap";
 import QuestionFlow from "./QuestionFlow";
@@ -42,6 +43,8 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [showQuestions, setShowQuestions] = useState(false);
   const [showStory, setShowStory] = useState(false);
+  const [isLoadingReading, setIsLoadingReading] = useState(false);
+  const [questions, setQuestions] = useState(oracleQuestions);
 
   useEffect(() => {
     // Initial loading animation
@@ -57,8 +60,12 @@ export default function Home() {
     answers: Array<{ question: string; answer: string }>
   ) => {
     setShowQuestions(false);
-    setShowStory(true);
-    // Here you would generate the story based on the answers
+    setIsLoadingReading(true);
+    setTimeout(() => {
+      setIsLoadingReading(false);
+      setShowStory(true);
+      // Here you would generate the story based on the answers
+    }, 6000); // Increased the duration to 6000ms
   };
 
   useEffect(() => {
@@ -90,6 +97,12 @@ export default function Home() {
     setTitle(randomTitle);
     setIntroduction(randomIntroduction);
     setEnding(randomEnding);
+
+    // Randomize three questions from the oracleQuestions array
+    const shuffledQuestions = [...oracleQuestions].sort(
+      () => 0.5 - Math.random()
+    );
+    setQuestions(shuffledQuestions.slice(0, 3));
   }, []);
 
   if (isLoading) {
@@ -100,9 +113,24 @@ export default function Home() {
     );
   }
 
+  if (isLoadingReading) {
+    return (
+      <div className={styles.loadingScreen}>
+        <div className={styles.rippleLoadingText}>
+          The Oracle is preparing your reading . . .
+        </div>
+      </div>
+    );
+  }
+
   return (
     <main className="relative overflow-hidden">
-      {showQuestions && <QuestionFlow onComplete={handleQuestionsComplete} />}
+      {showQuestions && (
+        <QuestionFlow
+          questions={questions}
+          onComplete={handleQuestionsComplete}
+        />
+      )}
 
       {showStory && (
         <>

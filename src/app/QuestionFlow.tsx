@@ -2,8 +2,12 @@
 
 import { useState } from "react";
 import styles from "./page.module.css";
-import { oracleQuestions } from "./storyContent";
 import { motion, AnimatePresence } from "framer-motion";
+
+type Question = {
+  question: string;
+  options: string[];
+};
 
 type Answer = {
   question: string;
@@ -11,10 +15,14 @@ type Answer = {
 };
 
 interface QuestionFlowProps {
+  questions: Question[];
   onComplete: (answers: Answer[]) => void;
 }
 
-export default function QuestionFlow({ onComplete }: QuestionFlowProps) {
+export default function QuestionFlow({
+  questions,
+  onComplete,
+}: QuestionFlowProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
 
@@ -22,22 +30,23 @@ export default function QuestionFlow({ onComplete }: QuestionFlowProps) {
     const newAnswers = [
       ...answers,
       {
-        question: oracleQuestions[currentQuestionIndex].question,
+        question: questions[currentQuestionIndex].question,
         answer,
       },
     ];
     setAnswers(newAnswers);
 
-    if (currentQuestionIndex < 2) {
+    if (currentQuestionIndex < questions.length - 1) {
       setTimeout(() => {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
       }, 500);
     } else {
+      // Call onComplete when we reach the last question
       onComplete(newAnswers);
     }
   };
 
-  const currentQuestion = oracleQuestions[currentQuestionIndex];
+  const currentQuestion = questions[currentQuestionIndex];
 
   return (
     <div className={styles.questionContainer}>
