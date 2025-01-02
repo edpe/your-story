@@ -38,8 +38,14 @@ export default function Home() {
   const [title, setTitle] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [ending, setEnding] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Show loading screen for 3 seconds (matches animation duration)
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
     window.scrollTo(0, 0);
 
     // Shuffle the scenes array
@@ -64,6 +70,14 @@ export default function Home() {
     setIntroduction(randomIntroduction);
     setEnding(randomEnding);
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className={styles.loadingScreen}>
+        <div className={styles.rippleText}>Oracle</div>
+      </div>
+    );
+  }
 
   return (
     <main className="relative overflow-hidden">

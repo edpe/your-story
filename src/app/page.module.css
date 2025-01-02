@@ -258,6 +258,45 @@ a.secondary {
   padding: 20px 0; /* Add some padding */
 }
 
+.loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.rippleText {
+  color: white;
+  font-size: 8rem;
+  font-family: 'Great Vibes', cursive;
+  animation: ripple 6s ease-in-out forwards;
+  opacity: 0;
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: blur(10px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+    filter: blur(15px);
+  }
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
 
