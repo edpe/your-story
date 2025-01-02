@@ -300,3 +300,54 @@ export const scenesData: Scene[] = [
     },
   },
 ];
+
+export const sceneReadings = {
+  theGateway: [
+    "Standing at the Gateway, you feel the weight of transition. This is not just a place but a turning point, asking you to move beyond hesitation.",
+    "The threshold invites you forward, but its light reveals more than it hides. What truths are you ready to uncover as you step through?",
+    "This is a moment where decisions must align with purpose. The Gateway whispers: What are you seeking on the other side?",
+    "The archway gleams with quiet power, reflecting your courage and your doubts. Do you trust the journey enough to begin?",
+  ],
+  desertOfKeys: [
+    "The desert stretches like a blank canvas, each key a question etched into the sands of possibility. Which will you choose to hold?",
+    "Amidst the silence, the keys shimmer faintly, as if holding memories long forgotten. Some are meant for you; others will fade as you pass.",
+    "The desert is a place of choices and consequences. Each key whispers of potential paths—will you act on intuition or logic?",
+    "The keys before you hold both clarity and confusion. The act of choosing will shape your path, but are you seeking answers or evading them?",
+  ],
+  treeOfThreads: [
+    "The Tree of Threads is alive with possibility, its luminous strands reaching out to connect. Which thread will you follow, and where will it lead?",
+    "Each thread carries a piece of wisdom, waiting to be woven into your story. Yet pulling one may unravel another—what balance will you strike?",
+    "The tree stands as both guide and witness, inviting you to reflect on your connections. What needs to be strengthened, and what must be released?",
+    "The threads seem to hum with unspoken truths. As you reach out, will you weave something new or untangle what has already begun?",
+  ],
+  mirrorSea: [
+    "The Mirror Sea reflects your inner world, its surface still yet alive with unseen movement. What lies hidden in its depths calls to you.",
+    "The sea offers clarity, but only if you are willing to confront what you see. Will you accept its truths or turn away from its stillness?",
+    "Beneath the calm surface lies an undercurrent of mystery. What do the reflections reveal about your journey so far?",
+    "The Mirror Sea asks you to let go of your expectations and simply observe. What will its ripples show you about the path ahead?",
+  ],
+  nightCircus: [
+    "The Night Circus flickers with light, its wonders pulling you into a realm of transformation. What part of yourself will you leave behind here?",
+    "The striped tents seem to shift with your gaze, each corner alive with possibility. The circus asks: What illusions do you cling to, and what magic do you fear?",
+    "In the glow of the circus, the boundaries of reality blur. What do the lights conceal, and what truths might they reveal?",
+    "The air hums with whispers and distant music. The Night Circus invites you to explore, but will you find clarity or lose yourself in its illusions?",
+  ],
+  labyrinthOfVoices: [
+    "The Labyrinth of Voices twists and turns, its whispers brushing against your thoughts. Which echoes are yours to follow, and which are distractions?",
+    "The labyrinth challenges your ability to discern truth from illusion. What will you discover in the shadows between words?",
+    "Each corridor seems alive, shifting as you move. The voices are neither friend nor foe—they are reflections of your inner dialogue.",
+    "The labyrinth invites you to confront what has been left unsaid. Will you emerge with greater understanding, or will its questions linger?",
+  ],
+  chamberOfLight: [
+    "The Chamber of Light offers warmth and clarity, but it also reveals what you may have hidden from yourself. Will you embrace what it shows?",
+    "This is a space of illumination, where shadows dissolve and truths emerge. What will you allow the light to uncover?",
+    "The chamber hums with quiet power, its glow steady and unyielding. What burdens will you leave behind here, and what wisdom will you take with you?",
+    "The light reveals not just answers but also questions you have yet to ask. Will you let its clarity guide your next steps?",
+  ],
+  spiralStaircase: [
+    "The Spiral Staircase rises and falls, its steps winding into the unknown. Each movement feels deliberate, yet the destination remains uncertain.",
+    "As you climb, the stars seem to shift and the air thickens with possibility. What cycles must be completed before the path ahead becomes clear?",
+    "The staircase is endless, yet every step holds meaning. What truths are waiting for you at the next turn?",
+    "Each step invites reflection, yet the pull of the spiral is undeniable. Are you moving forward with purpose or being drawn into its rhythm?",
+  ],
+};

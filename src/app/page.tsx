@@ -8,7 +8,9 @@ import {
   abstractTitles,
   introductions,
   endings,
+  sceneReadings,
 } from "./storyContent";
+import { random } from "gsap";
 
 type Scene = {
   src: string;
@@ -25,6 +27,10 @@ type Scene = {
     "the-gateway"?: string;
   };
 };
+
+function toCamelCase(str: string) {
+  return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+}
 
 export default function Home() {
   const [scenes, setScenes] = useState<Scene[]>([]);
@@ -69,6 +75,14 @@ export default function Home() {
                 .toLowerCase()
                 .replace(/ /g, "-") as keyof Scene["transitionText"]
             ] + " . . .";
+          const readingKey = toCamelCase(
+            scene.alt.toLowerCase().replace(/ /g, "-")
+          ) as keyof typeof sceneReadings;
+          const randomReading =
+            sceneReadings[readingKey] &&
+            sceneReadings[readingKey][
+              Math.floor(Math.random() * sceneReadings[readingKey].length)
+            ];
 
           return (
             <div key={scene.alt} className={styles.scene}>
@@ -90,7 +104,13 @@ export default function Home() {
                       : styles.overlayTextRight
                   }
                 >
-                  {scene.texts[index % scene.texts.length]}
+                  <div>{scene.texts[index % scene.texts.length]}</div>
+                  {randomReading && (
+                    <div>
+                      <br />
+                      {randomReading}
+                    </div>
+                  )}
                 </div>
               </div>
               {index < scenes.length - 1 && (
