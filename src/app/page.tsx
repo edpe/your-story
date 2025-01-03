@@ -45,6 +45,36 @@ export default function Home() {
   const [showStory, setShowStory] = useState(false);
   const [isLoadingReading, setIsLoadingReading] = useState(false);
   const [questions, setQuestions] = useState(oracleQuestions);
+  const [revealedScenes, setRevealedScenes] = useState<{
+    [key: number]: boolean;
+  }>({});
+  const [showReading, setShowReading] = useState<{ [key: number]: boolean }>(
+    {}
+  );
+
+  const handleRevealReading = (index: number) => {
+    setRevealedScenes((prev) => ({
+      ...prev,
+      [index]: true,
+    }));
+    setShowReading((prev) => ({
+      ...prev,
+      [index]: true,
+    }));
+  };
+
+  const handleToggleReading = (index: number) => {
+    setShowReading((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+    if (showReading[index]) {
+      setRevealedScenes((prev) => ({
+        ...prev,
+        [index]: false,
+      }));
+    }
+  };
 
   useEffect(() => {
     // Initial loading animation
@@ -184,39 +214,81 @@ export default function Home() {
                 >
                   {/* Scene image with vignette effect */}
                   <div className={styles.vignetteGradient}>
-                    <Image
-                      src={scene.src}
-                      alt={scene.alt}
-                      width={800}
-                      height={600}
-                      loading="lazy"
-                      className={styles.imageWithMargin}
-                      layout="responsive"
-                      style={{ width: "100%", height: "auto" }}
-                    />
-
-                    {/* Overlay text on the scene image */}
-                    <motion.div
-                      className={
-                        index % 2 === 0
-                          ? styles.overlayTextLeft
-                          : styles.overlayTextRight
-                      }
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 4 }}
-                    >
-                      {/* Main scene text */}
-                      <div>{scene.texts[index % scene.texts.length]}</div>
-                      {/* Additional reading text if available */}
-                      {randomReading && (
-                        <div>
-                          <br />
-                          {randomReading}
-                        </div>
-                      )}
-                    </motion.div>
+                    {!revealedScenes[index] ? (
+                      <>
+                        <Image
+                          src={scene.src}
+                          alt={scene.alt}
+                          width={800}
+                          height={600}
+                          loading="lazy"
+                          className={styles.imageWithMargin}
+                          layout="responsive"
+                          style={{ width: "100%", height: "auto" }}
+                        />
+                        <motion.div
+                          className={
+                            index % 2 === 0
+                              ? styles.overlayTextLeft
+                              : styles.overlayTextRight
+                          }
+                          initial={{ opacity: 0 }}
+                          whileInView={{ opacity: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 4 }}
+                        >
+                          <div>{scene.texts[index % scene.texts.length]}</div>
+                        </motion.div>
+                        <button
+                          className={styles.revealButton}
+                          onClick={() => handleRevealReading(index)}
+                        >
+                          Receive your reading
+                        </button>
+                      </>
+                    ) : (
+                      <motion.div
+                        className={styles.readingReveal}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1.5 }}
+                        onClick={() => handleToggleReading(index)}
+                      >
+                        {showReading[index] ? (
+                          <div className={styles.readingFrame}>
+                            {randomReading}
+                          </div>
+                        ) : (
+                          <>
+                            <Image
+                              src={scene.src}
+                              alt={scene.alt}
+                              width={800}
+                              height={600}
+                              loading="lazy"
+                              className={styles.imageWithMargin}
+                              layout="responsive"
+                              style={{ width: "100%", height: "auto" }}
+                            />
+                            <motion.div
+                              className={
+                                index % 2 === 0
+                                  ? styles.overlayTextLeft
+                                  : styles.overlayTextRight
+                              }
+                              initial={{ opacity: 0 }}
+                              whileInView={{ opacity: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 4 }}
+                            >
+                              <div>
+                                {scene.texts[index % scene.texts.length]}
+                              </div>
+                            </motion.div>
+                          </>
+                        )}
+                      </motion.div>
+                    )}
                   </div>
 
                   {/* Transition text between scenes */}
