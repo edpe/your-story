@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import styles from "./page.module.css";
 import {
   scenesData,
@@ -12,7 +11,6 @@ import {
   sceneReadings,
   oracleQuestions,
 } from "./storyContent";
-import { random } from "gsap";
 import QuestionFlow from "./QuestionFlow";
 
 type Scene = {
@@ -178,24 +176,10 @@ export default function Home() {
       {showStory && (
         <>
           {/* Main title of the story */}
-          <motion.h1
-            className={styles.title} // Add rippleText class
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2 }}
-          >
-            {title}
-          </motion.h1>
+          <h1 className={styles.title}>{title}</h1>
 
           {/* Story introduction text */}
-          <motion.div
-            className={styles.introduction}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2, delay: 0.5 }}
-          >
-            {introduction}
-          </motion.div>
+          <div className={styles.introduction}>{introduction}</div>
 
           {/* Container for all story scenes */}
           <div className={styles.imageContainer}>
@@ -217,14 +201,7 @@ export default function Home() {
                 ];
 
               return (
-                <motion.div
-                  key={scene.alt}
-                  className={styles.scene}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 2, delay: 1 }}
-                >
+                <div key={scene.alt} className={styles.scene}>
                   {/* Scene image with vignette effect */}
                   <div className={styles.vignetteGradient}>
                     {!revealedScenes[index] ? (
@@ -239,19 +216,15 @@ export default function Home() {
                           layout="responsive"
                           style={{ width: "100%", height: "auto" }}
                         />
-                        <motion.div
+                        <div
                           className={
                             index % 2 === 0
                               ? styles.overlayTextLeft
                               : styles.overlayTextRight
                           }
-                          initial={{ opacity: 0 }}
-                          whileInView={{ opacity: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 4 }}
                         >
                           <div>{scene.texts[index % scene.texts.length]}</div>
-                        </motion.div>
+                        </div>
                         <button
                           className={styles.revealButton}
                           onClick={() =>
@@ -262,11 +235,8 @@ export default function Home() {
                         </button>
                       </>
                     ) : (
-                      <motion.div
+                      <div
                         className={styles.readingReveal}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 1.5 }}
                         onClick={() => handleToggleReading(index)}
                         style={{ height: "100%" }}
                       >
@@ -286,56 +256,38 @@ export default function Home() {
                               layout="responsive"
                               style={{ width: "100%", height: "auto" }}
                             />
-                            <motion.div
+                            <div
                               className={
                                 index % 2 === 0
                                   ? styles.overlayTextLeft
                                   : styles.overlayTextRight
                               }
-                              initial={{ opacity: 0 }}
-                              whileInView={{ opacity: 1 }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 4 }}
                             >
                               <div>
                                 {scene.texts[index % scene.texts.length]}
                               </div>
-                            </motion.div>
+                            </div>
                           </>
                         )}
-                      </motion.div>
+                      </div>
                     )}
                   </div>
 
                   {/* Transition text between scenes */}
                   {index < scenes.length - 1 && (
                     <div className={styles.verticalSpacing}>
-                      <motion.div
-                        className={styles.transitionText}
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.2 }}
-                      >
+                      <div className={styles.transitionText}>
                         {transitionText}
-                      </motion.div>
+                      </div>
                     </div>
                   )}
-                </motion.div>
+                </div>
               );
             })}
           </div>
 
           {/* Story ending text */}
-          <motion.div
-            className={styles.ending}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 2 }}
-          >
-            {ending}
-          </motion.div>
+          <div className={styles.ending}>{ending}</div>
         </>
       )}
     </main>

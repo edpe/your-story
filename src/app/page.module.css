@@ -452,7 +452,7 @@ a.secondary {
 }
 
 .backgroundImage {
-  background-image: url('/images/oracle-background.png');
+  background-image: url('/images/cloud-background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
