@@ -51,8 +51,11 @@ export default function Home() {
   const [showReading, setShowReading] = useState<{ [key: number]: boolean }>(
     {}
   );
+  const [selectedReadings, setSelectedReadings] = useState<{
+    [key: number]: string;
+  }>({});
 
-  const handleRevealReading = (index: number) => {
+  const handleRevealReading = (index: number, reading: string) => {
     setRevealedScenes((prev) => ({
       ...prev,
       [index]: true,
@@ -60,6 +63,10 @@ export default function Home() {
     setShowReading((prev) => ({
       ...prev,
       [index]: true,
+    }));
+    setSelectedReadings((prev) => ({
+      ...prev,
+      [index]: prev[index] || reading, // Ensure the reading remains the same
     }));
   };
 
@@ -99,10 +106,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // Show loading screen for 3 seconds (matches animation duration)
+    // Show loading screen for 6 seconds (matches ripple animation duration)
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 6000);
 
     window.scrollTo(0, 0);
 
@@ -138,6 +145,7 @@ export default function Home() {
   if (isLoading) {
     return (
       <div className={styles.loadingScreen}>
+        <div className={styles.backgroundImage}></div>
         <div className={styles.rippleText}>Oracle</div>
       </div>
     );
@@ -146,6 +154,7 @@ export default function Home() {
   if (isLoadingReading) {
     return (
       <div className={styles.loadingScreen}>
+        <div className={styles.backgroundImage}></div>
         <div className={styles.rippleLoadingText}>
           The Oracle is preparing your reading . . .
         </div>
@@ -154,7 +163,11 @@ export default function Home() {
   }
 
   return (
-    <main className="relative overflow-hidden">
+    <main
+      className="relative overflow-hidden"
+      style={{ backgroundColor: showStory ? "black" : "transparent" }}
+    >
+      {!showStory && <div className={styles.backgroundImage}></div>}
       {showQuestions && (
         <QuestionFlow
           questions={questions}
@@ -166,7 +179,7 @@ export default function Home() {
         <>
           {/* Main title of the story */}
           <motion.h1
-            className={styles.title}
+            className={styles.title} // Add rippleText class
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 2 }}
@@ -241,7 +254,9 @@ export default function Home() {
                         </motion.div>
                         <button
                           className={styles.revealButton}
-                          onClick={() => handleRevealReading(index)}
+                          onClick={() =>
+                            handleRevealReading(index, randomReading)
+                          }
                         >
                           Receive your reading
                         </button>
@@ -253,10 +268,11 @@ export default function Home() {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1.5 }}
                         onClick={() => handleToggleReading(index)}
+                        style={{ height: "100%" }}
                       >
                         {showReading[index] ? (
                           <div className={styles.readingFrame}>
-                            {randomReading}
+                            {selectedReadings[index]}
                           </div>
                         ) : (
                           <>

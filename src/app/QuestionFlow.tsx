@@ -50,6 +50,7 @@ export default function QuestionFlow({
 
   return (
     <div className={styles.questionContainer}>
+      <div className={styles.backgroundImage}></div>
       <AnimatePresence mode="wait">
         <motion.div
           key={currentQuestionIndex}
