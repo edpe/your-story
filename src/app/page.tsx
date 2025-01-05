@@ -43,6 +43,8 @@ export default function Home() {
   const [showStory, setShowStory] = useState(false);
   const [isLoadingReading, setIsLoadingReading] = useState(false);
   const [questions, setQuestions] = useState(oracleQuestions);
+  const [currentSceneIndex, setCurrentSceneIndex] = useState(-1); // Start with -1 to show title and introduction first
+  const [showTransition, setShowTransition] = useState(false);
   const [revealedScenes, setRevealedScenes] = useState<{
     [key: number]: boolean;
   }>({});
@@ -78,6 +80,15 @@ export default function Home() {
         ...prev,
         [index]: false,
       }));
+    }
+  };
+
+  const handleContinue = () => {
+    if (showTransition) {
+      setShowTransition(false);
+      setCurrentSceneIndex(currentSceneIndex + 1);
+    } else if (currentSceneIndex < scenes.length - 1) {
+      setShowTransition(true);
     }
   };
 
@@ -175,76 +186,64 @@ export default function Home() {
 
       {showStory && (
         <>
-          {/* Main title of the story */}
-          <h1 className={styles.title}>{title}</h1>
+          {currentSceneIndex === -1 ? (
+            <div className={styles.introScreen}>
+              {/* Main title of the story */}
+              <h1 className={styles.title}>{title}</h1>
 
-          {/* Story introduction text */}
-          <div className={styles.introduction}>{introduction}</div>
+              {/* Story introduction text */}
+              <div className={styles.introduction}>{introduction}</div>
 
-          {/* Container for all story scenes */}
-          <div className={styles.imageContainer}>
-            {scenes.map((scene, index) => {
-              const nextScene = scenes[(index + 1) % scenes.length];
-              const transitionText =
-                scene.transitionText[
-                  nextScene.alt
+              {/* Continue button to navigate to the first scene */}
+              <button
+                className={styles.continueButton}
+                onClick={handleContinue}
+              >
+                Continue
+              </button>
+            </div>
+          ) : showTransition ? (
+            <div className={styles.transitionScreen}>
+              {/* Transition text between scenes */}
+              <div className={styles.transitionText}>
+                {scenes[currentSceneIndex].transitionText[
+                  scenes[(currentSceneIndex + 1) % scenes.length].alt
                     .toLowerCase()
                     .replace(/ /g, "-") as keyof Scene["transitionText"]
-                ] + " . . .";
-              const readingKey = toCamelCase(
-                scene.alt.toLowerCase().replace(/ /g, "-")
-              ) as keyof typeof sceneReadings;
-              const randomReading =
-                sceneReadings[readingKey] &&
-                sceneReadings[readingKey][
-                  Math.floor(Math.random() * sceneReadings[readingKey].length)
-                ];
+                ] + " . . ."}
+              </div>
 
-              return (
-                <div key={scene.alt} className={styles.scene}>
-                  {/* Scene image with vignette effect */}
-                  <div className={styles.vignetteGradient}>
-                    {!revealedScenes[index] ? (
-                      <>
-                        <Image
-                          src={scene.src}
-                          alt={scene.alt}
-                          width={800}
-                          height={600}
-                          loading="lazy"
-                          className={styles.imageWithMargin}
-                          layout="responsive"
-                          style={{ width: "100%", height: "auto" }}
-                        />
-                        <div
-                          className={
-                            index % 2 === 0
-                              ? styles.overlayTextLeft
-                              : styles.overlayTextRight
-                          }
-                        >
-                          <div>{scene.texts[index % scene.texts.length]}</div>
-                        </div>
-                        <button
-                          className={styles.revealButton}
-                          onClick={() =>
-                            handleRevealReading(index, randomReading)
-                          }
-                        >
-                          Receive your reading
-                        </button>
-                      </>
-                    ) : (
-                      <div
-                        className={styles.readingReveal}
-                        onClick={() => handleToggleReading(index)}
-                        style={{ height: "100%" }}
-                      >
-                        {showReading[index] ? (
-                          <div className={styles.readingFrame}>
-                            {selectedReadings[index]}
-                          </div>
-                        ) : (
+              {/* Continue button to navigate to the next scene */}
+              <button
+                className={styles.continueButton}
+                onClick={handleContinue}
+              >
+                Continue
+              </button>
+            </div>
+          ) : (
+            <>
+              {/* Container for the current story scene */}
+              <div className={styles.imageContainer}>
+                {scenes.map((scene, index) => {
+                  if (index !== currentSceneIndex) return null;
+
+                  const readingKey = toCamelCase(
+                    scene.alt.toLowerCase().replace(/ /g, "-")
+                  ) as keyof typeof sceneReadings;
+                  const randomReading =
+                    sceneReadings[readingKey] &&
+                    sceneReadings[readingKey][
+                      Math.floor(
+                        Math.random() * sceneReadings[readingKey].length
+                      )
+                    ];
+
+                  return (
+                    <div key={scene.alt} className={styles.scene}>
+                      {/* Scene image with vignette effect */}
+                      <div className={styles.vignetteGradient}>
+                        {!revealedScenes[index] ? (
                           <>
                             <Image
                               src={scene.src}
@@ -267,27 +266,74 @@ export default function Home() {
                                 {scene.texts[index % scene.texts.length]}
                               </div>
                             </div>
+                            <button
+                              className={styles.revealButton}
+                              onClick={() =>
+                                handleRevealReading(index, randomReading)
+                              }
+                            >
+                              Receive your reading
+                            </button>
                           </>
+                        ) : (
+                          <div
+                            className={styles.readingReveal}
+                            onClick={() => handleToggleReading(index)}
+                            style={{ height: "100%" }}
+                          >
+                            {showReading[index] ? (
+                              <div className={styles.readingFrame}>
+                                {selectedReadings[index]}
+                              </div>
+                            ) : (
+                              <>
+                                <Image
+                                  src={scene.src}
+                                  alt={scene.alt}
+                                  width={800}
+                                  height={600}
+                                  loading="lazy"
+                                  className={styles.imageWithMargin}
+                                  layout="responsive"
+                                  style={{ width: "100%", height: "auto" }}
+                                />
+                                <div
+                                  className={
+                                    index % 2 === 0
+                                      ? styles.overlayTextLeft
+                                      : styles.overlayTextRight
+                                  }
+                                >
+                                  <div>
+                                    {scene.texts[index % scene.texts.length]}
+                                  </div>
+                                </div>
+                              </>
+                            )}
+                          </div>
                         )}
                       </div>
-                    )}
-                  </div>
-
-                  {/* Transition text between scenes */}
-                  {index < scenes.length - 1 && (
-                    <div className={styles.verticalSpacing}>
-                      <div className={styles.transitionText}>
-                        {transitionText}
-                      </div>
                     </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+                  );
+                })}
+              </div>
 
-          {/* Story ending text */}
-          <div className={styles.ending}>{ending}</div>
+              {/* Continue button to navigate to the next scene */}
+              {currentSceneIndex < scenes.length - 1 && (
+                <button
+                  className={styles.continueButton}
+                  onClick={handleContinue}
+                >
+                  Continue
+                </button>
+              )}
+
+              {/* Story ending text */}
+              {currentSceneIndex === scenes.length - 1 && (
+                <div className={styles.ending}>{ending}</div>
+              )}
+            </>
+          )}
         </>
       )}
     </main>
