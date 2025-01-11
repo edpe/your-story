@@ -1,0 +1,79 @@
+.loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.rippleTitleText {
+  color: white;
+  font-size: 10rem;
+  font-family: "Great Vibes", cursive;
+  animation: ripple 6s ease-in-out forwards;
+  opacity: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .rippleTitleText {
+    font-size: 6rem; /* Decrease font size for smaller screens */
+  }
+}
+
+.transitionTextContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 80%;
+}
+
+.transitionText {
+  color: white;
+  font-size: 4rem;
+  font-family: "Great Vibes", cursive;
+  font-weight: lighter;
+  animation: ripple 6s ease-in-out forwards;
+  opacity: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .transitionText {
+    font-size: 1rem; /* Decrease font size for smaller screens */
+  }
+}
+
+.backgroundImage {
+  background-image: url("/images/cloud-background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: blur(10px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+    filter: blur(15px);
+  }
+}

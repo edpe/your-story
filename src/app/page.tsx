@@ -8,12 +8,12 @@ import {
   introductions,
   endings,
   oracleQuestions,
-} from "./storyContent";
-import QuestionFlow from "./QuestionFlow";
-import LoadingScreen from "./LoadingScreen";
-import IntroScreen from "./IntroScreen";
-import TransitionScreen from "./TransitionScreen";
-import SceneContainer from "./SceneContainer";
+} from "./data/storyContent";
+import QuestionFlow from "./components/QuestionFlow";
+import LoadingScreen from "./components/LoadingScreen";
+import IntroScreen from "./components/IntroScreen";
+import TransitionScreen from "./components/TransitionScreen";
+import SceneContainer from "./components/SceneContainer";
 
 export type Scene = {
   src: string;
@@ -195,11 +195,16 @@ export default function Home() {
   };
 
   if (state.isLoading) {
-    return <LoadingScreen text="Oracle" />;
+    return <LoadingScreen text="Oracle" type="title" />;
   }
 
   if (state.isLoadingReading) {
-    return <LoadingScreen text="The Oracle is preparing your reading . . ." />;
+    return (
+      <LoadingScreen
+        text="The Oracle is preparing your reading . . ."
+        type="transition"
+      />
+    );
   }
 
   return (
