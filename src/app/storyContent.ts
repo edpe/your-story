@@ -1,5 +1,6 @@
 type Scene = {
   src: string;
+  mobileSrc?: string;
   alt: string;
   texts: string[];
   transitionText: {
@@ -133,6 +134,7 @@ export const endings = [
 export const scenesData: Scene[] = [
   {
     src: "/images/the-gateway.png",
+    mobileSrc: "/images/mobile/the-gateway.png",
     alt: "The Gateway",
     texts: [
       "You stand before the shimmering gateway, a threshold between the familiar and the unknown. The light dances in intricate patterns, whispering promises of transformation. The air feels heavy with possibility, as if the entire universe holds its breath for your first step.", // Position 1
@@ -163,6 +165,7 @@ export const scenesData: Scene[] = [
   },
   {
     src: "/images/desert-of-keys.png",
+    mobileSrc: "/images/mobile/desert-of-keys.png",
     alt: "Desert of Keys",
     texts: [
       "The desert stretches endlessly before you, golden sands glittering under a sunless sky. Scattered across the dunes are keys of every shape and size, their purpose unknown. Each key feels alive, as though watching and waiting for your choice.", // Position 1
@@ -193,6 +196,7 @@ export const scenesData: Scene[] = [
   },
   {
     src: "/images/tree-of-threads.png",
+    mobileSrc: "/images/mobile/tree-of-threads.png",
     alt: "Tree of Threads",
     texts: [
       "The tree rises before you, ancient and glowing with threads of light. Each thread sways gently, as if moved by an unseen wind. They seem to hum softly, their vibrations resonating with something deep within you.", // Position 1
@@ -223,6 +227,7 @@ export const scenesData: Scene[] = [
   },
   {
     src: "/images/mirror-sea.png",
+    mobileSrc: "/images/mobile/mirror-sea.png",
     alt: "Mirror Sea",
     texts: [
       "The Mirror Sea lies before you, still and glassy, reflecting the vast expanse of stars above. As you approach, the surface shimmers, its stillness both inviting and unnerving. This is not just a sea—it is a threshold to something deeper.", // Position 1
@@ -253,6 +258,7 @@ export const scenesData: Scene[] = [
   },
   {
     src: "/images/night-circus.png",
+    mobileSrc: "/images/mobile/night-circus.png",
     alt: "Night Circus",
     texts: [
       "The Night Circus appears without warning, its striped tents glowing faintly under the moonlight. Laughter and whispers drift on the air, but the performers remain hidden in shadow. It feels as though the circus has been waiting just for you.", // Position 1
@@ -283,6 +289,7 @@ export const scenesData: Scene[] = [
   },
   {
     src: "/images/labyrinth-of-voices.png",
+    mobileSrc: "/images/mobile/labyrinth-of-voices.png",
     alt: "Labyrinth of Voices",
     texts: [
       "The labyrinth rises before you, an intricate maze of twisting corridors and shifting walls. Faint whispers echo from every direction, overlapping until they are almost indistinguishable. Each step forward feels like entering a story you’ve only half-heard.", // Position 1
@@ -313,6 +320,7 @@ export const scenesData: Scene[] = [
   },
   {
     src: "/images/chamber-of-light.png",
+    mobileSrc: "/images/mobile/chamber-of-light.png",
     alt: "Chamber of Light",
     texts: [
       "The chamber glows softly, its golden light spilling out into the darkness. The air inside is warm and inviting, yet it carries a weight, as though this place remembers everything it has seen.", // Position 1
@@ -343,6 +351,7 @@ export const scenesData: Scene[] = [
   },
   {
     src: "/images/spiral-staircase.png",
+    mobileSrc: "/images/mobile/spiral-staircase.png",
     alt: "Spiral Staircase",
     texts: [
       "The staircase spirals infinitely, rising into the stars and descending into shadow. Each step echoes as you ascend, the sound carrying through the vast emptiness surrounding you.", // Position 1

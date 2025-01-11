@@ -258,6 +258,13 @@ a.secondary {
   padding: 20px 0; /* Add some padding */
 }
 
+@media screen and (max-width: 600px) {
+  .title {
+    font-size: 2rem; /* Decrease font size for smaller screens */
+  }
+  
+}
+
 .loadingScreen {
   position: fixed;
   top: 0;
@@ -286,20 +293,49 @@ a.secondary {
   opacity: 1;
 }
 
-.rippleLoadingText {
+.rippleTitleText {
   color: white;
-  font-size: 4rem;
+  font-size: 8rem;
   font-family: 'Great Vibes', cursive;
   animation: ripple 6s ease-in-out forwards;
   opacity: 0;
 }
 
-.rippleReadingText {
+@media screen and (max-width: 600px) {
+  .rippleTitleText {
+    font-size: 0.2rem; /* Decrease font size for smaller screens */
+    color: red;
+  }
+}
+
+.rippleLoadingText {
   color: white;
   font-size: 8rem;
   font-family: 'Great Vibes', cursive;
   animation: ripple 6s ease-in-out forwards;
+  opacity: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .rippleLoadingText {
+    font-size: 4rem; /* Decrease font size for smaller screens */
+  }
+  
+}
+
+.rippleReadingText {
+  color: white;
+  font-size: 4rem;
+  font-family: 'Great Vibes', cursive;
+  animation: ripple 6s ease-in-out forwards;
   opacity: 1;
+}
+
+@media screen and (max-width: 600px) {
+  .rippleReadingText {
+    font-size: 2rem; /* Decrease font size for smaller screens */
+  }
+  
 }
 
 .rippleQuestionText {
