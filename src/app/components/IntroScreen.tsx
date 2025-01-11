@@ -1,4 +1,5 @@
 import styles from "./IntroScreen.module.css";
+import ContinueButton from "./ContinueButton";
 
 type IntroScreenProps = {
   title: string;
@@ -15,9 +16,7 @@ export default function IntroScreen({
     <div className={styles.introScreen}>
       <h1 className={styles.titleText}>{title}</h1>
       <div className={styles.introductionText}>{introduction}</div>
-      <button className={styles.continueButton} onClick={onContinue}>
-        Continue
-      </button>
+      <ContinueButton onClick={onContinue} text="Continue" />
     </div>
   );
 }

@@ -48,21 +48,3 @@
     font-size: 1.5rem; /* Decrease font size for smaller screens */
   }
 }
-
-.continueButton {
-  background: transparent;
-  border: 2px solid white;
-  color: white;
-  padding: 1rem 2rem;
-  font-family: "Great Vibes", cursive;
-  font-size: 1.5rem;
-  cursor: pointer;
-  border-radius: 30px;
-  transition: all 0.3s ease;
-  margin-top: 2rem; /* Add some margin to separate from the scene */
-}
-
-.continueButton:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: scale(1.05);
-}

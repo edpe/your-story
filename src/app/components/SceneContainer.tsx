@@ -2,6 +2,8 @@ import Image from "next/image";
 import styles from "./SceneContainer.module.css";
 import { Scene } from "../page";
 import { sceneReadings } from "../data/storyContent";
+import ContinueButton from "./ContinueButton";
+import RevealButton from "./RevealButton";
 
 type SceneContainerProps = {
   scenes: Scene[];
@@ -19,6 +21,93 @@ function toCamelCase(str: string) {
   return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
 
+const getRandomReading = (alt: string) => {
+  const readingKey = toCamelCase(
+    alt.toLowerCase().replace(/ /g, "-")
+  ) as keyof typeof sceneReadings;
+  const readings = sceneReadings[readingKey];
+  return readings ? readings[Math.floor(Math.random() * readings.length)] : "";
+};
+
+const SceneImage = ({
+  scene,
+  isMobile,
+  text,
+}: {
+  scene: Scene;
+  isMobile: boolean;
+  text: string;
+}) => (
+  <>
+    <Image
+      src={isMobile ? scene.mobileSrc || scene.src : scene.src}
+      alt={scene.alt}
+      width={800}
+      height={600}
+      loading="lazy"
+      className={styles.imageWithMargin}
+      layout="responsive"
+      style={{ width: "100%", height: "auto" }}
+    />
+    <div className={text ? styles.overlayTextLeft : styles.overlayTextRight}>
+      <div>{text}</div>
+    </div>
+  </>
+);
+
+const SceneView = ({
+  scene,
+  index,
+  revealedScenes,
+  showReading,
+  selectedReadings,
+  handleRevealReading,
+  isMobile,
+  handleToggleReading,
+}: {
+  scene: Scene;
+  index: number;
+  revealedScenes: { [key: number]: boolean };
+  showReading: { [key: number]: boolean };
+  selectedReadings: { [key: number]: string };
+  handleRevealReading: (index: number, reading: string) => void;
+  isMobile: boolean;
+  handleToggleReading: (index: number) => void;
+}) => {
+  const randomReading = getRandomReading(scene.alt);
+  const text = scene.texts[index % scene.texts.length];
+
+  if (!revealedScenes[index]) {
+    return (
+      <div className={styles.vignetteGradient}>
+        <SceneImage scene={scene} isMobile={isMobile} text={text} />
+        <RevealButton
+          index={index}
+          randomReading={randomReading}
+          handleRevealReading={handleRevealReading}
+        />
+      </div>
+    );
+  }
+
+  if (showReading[index]) {
+    return (
+      <div
+        className={styles.readingFrame}
+        onClick={() => handleToggleReading(index)}
+      >
+        {selectedReadings[index]}
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.vignetteGradient}>
+      <SceneImage scene={scene} isMobile={isMobile} text={text} />
+    </div>
+  );
+};
+
 export default function SceneContainer({
   scenes,
   currentSceneIndex,
@@ -35,99 +124,28 @@ export default function SceneContainer({
   return (
     <>
       <div className={styles.imageContainer}>
-        {scenes.map((scene, index) => {
-          if (index !== currentSceneIndex) return null;
-
-          const readingKey = toCamelCase(
-            scene.alt.toLowerCase().replace(/ /g, "-")
-          ) as keyof typeof sceneReadings;
-          const randomReading =
-            sceneReadings[readingKey]?.[
-              Math.floor(Math.random() * sceneReadings[readingKey]?.length || 0)
-            ];
-
-          return (
-            <div key={scene.alt} className={styles.scene}>
-              <div className={styles.vignetteGradient}>
-                {!revealedScenes[index] ? (
-                  <>
-                    <Image
-                      src={isMobile ? scene.mobileSrc ?? scene.src : scene.src}
-                      alt={scene.alt}
-                      width={800}
-                      height={600}
-                      loading="lazy"
-                      className={styles.imageWithMargin}
-                      layout="responsive"
-                      style={{ width: "100%", height: "auto" }}
-                    />
-                    <div
-                      className={
-                        index % 2 === 0
-                          ? styles.overlayTextLeft
-                          : styles.overlayTextRight
-                      }
-                    >
-                      <div>{scene.texts[index % scene.texts.length]}</div>
-                    </div>
-                    <button
-                      className={styles.revealButton}
-                      onClick={() => handleRevealReading(index, randomReading)}
-                    >
-                      Receive your reading
-                    </button>
-                  </>
-                ) : (
-                  <div
-                    className={styles.readingReveal}
-                    onClick={() => handleToggleReading(index)}
-                    style={{ height: "100%" }}
-                    role="button"
-                  >
-                    {showReading[index] ? (
-                      <div className={styles.readingFrame}>
-                        {selectedReadings[index]}
-                      </div>
-                    ) : (
-                      <>
-                        <Image
-                          src={
-                            isMobile ? scene.mobileSrc ?? scene.src : scene.src
-                          }
-                          alt={scene.alt}
-                          width={800}
-                          height={600}
-                          loading="lazy"
-                          className={styles.imageWithMargin}
-                          layout="responsive"
-                          style={{ width: "100%", height: "auto" }}
-                        />
-                        <div
-                          className={
-                            index % 2 === 0
-                              ? styles.overlayTextLeft
-                              : styles.overlayTextRight
-                          }
-                        >
-                          <div>{scene.texts[index % scene.texts.length]}</div>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          );
-        })}
+        {scenes.map((scene, index) =>
+          index === currentSceneIndex ? (
+            <SceneView
+              key={scene.alt}
+              scene={scene}
+              index={index}
+              revealedScenes={revealedScenes}
+              showReading={showReading}
+              selectedReadings={selectedReadings}
+              handleRevealReading={handleRevealReading}
+              handleToggleReading={handleToggleReading}
+              isMobile={isMobile}
+            />
+          ) : null
+        )}
       </div>
 
-      {currentSceneIndex < scenes.length - 1 && (
-        <button className={styles.continueButton} onClick={handleContinue}>
-          Continue
-        </button>
-      )}
-
-      {currentSceneIndex === scenes.length - 1 && (
+      {currentSceneIndex < scenes.length - 1 ? (
+        <div className={styles.continueButtonWrapper}>
+          <ContinueButton onClick={handleContinue} text="Continue" />
+        </div>
+      ) : (
         <div className={styles.ending}>{ending}</div>
       )}
     </>

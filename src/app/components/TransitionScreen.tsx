@@ -1,4 +1,5 @@
 import styles from "./TransitionScreen.module.css";
+import ContinueButton from "./ContinueButton";
 
 type TransitionScreenProps = {
   transitionText: string;
@@ -11,10 +12,8 @@ export default function TransitionScreen({
 }: Readonly<TransitionScreenProps>) {
   return (
     <div className={styles.transitionScreen}>
-      <div className={styles.transitionText}>{transitionText}</div>
-      <button className={styles.continueButton} onClick={onContinue}>
-        Continue
-      </button>
+      <p className={styles.transitionText}>{transitionText}</p>
+      <ContinueButton onClick={onContinue} text="Continue" />
     </div>
   );
 }

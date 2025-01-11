@@ -8,23 +8,23 @@
 }
 
 .transitionText {
-  font-size: 14px;
-}
-
-.continueButton {
-  background: transparent;
-  border: 2px solid white;
+  text-align: center;
   color: white;
-  padding: 1rem 2rem;
+  font-size: 3em; /* Bigger font size */
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
   font-family: "Great Vibes", cursive;
-  font-size: 1.5rem;
-  cursor: pointer;
-  border-radius: 30px;
-  transition: all 0.3s ease;
-  margin-top: 2rem; /* Add some margin to separate from the scene */
+  max-width: 90vw; /* Constrict text to half the viewport width */
+  margin: 0 auto; /* Center the text */
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  padding: 100px 0; /* Add some padding */
 }
 
-.continueButton:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: scale(1.05);
+@media screen and (max-width: 600px) {
+  .transitionText {
+    font-size: 1.5rem; /* Decrease font size for smaller screens */
+  }
 }

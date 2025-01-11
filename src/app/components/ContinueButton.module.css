@@ -1,0 +1,25 @@
+.continueButton {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 1rem 2rem;
+  font-family: "Great Vibes", cursive;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  width: 300px; /* Set a fixed width for larger screens */
+}
+
+@media screen and (max-width: 600px) {
+  .continueButton {
+    font-size: 1rem; /* Decrease font size for smaller screens */
+    padding: 0.5rem 1rem; /* Decrease padding for smaller screens */
+    width: 100%; /* Full width on mobile */
+  }
+}
+
+.continueButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
