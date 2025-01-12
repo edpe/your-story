@@ -127,35 +127,37 @@ export default function Home() {
   };
 
   useEffect(() => {
-    setTimeout(() => {
+    if (typeof window !== "undefined") {
+      setTimeout(() => {
+        setState((prev) => ({
+          ...prev,
+          isLoading: false,
+        }));
+      }, 6000);
+
+      window.scrollTo(0, 0);
+
+      scenesData.sort(() => Math.random() - 0.5);
+      const selectedScenes = scenesData.slice(0, 5);
+      const randomTitle =
+        abstractTitles[Math.floor(Math.random() * abstractTitles.length)];
+      const randomIntroduction =
+        introductions[Math.floor(Math.random() * introductions.length)];
+      const randomEnding = endings[Math.floor(Math.random() * endings.length)];
+
+      const shuffledQuestions = [...oracleQuestions].sort(
+        () => 0.5 - Math.random()
+      );
+
       setState((prev) => ({
         ...prev,
-        isLoading: false,
+        scenes: selectedScenes,
+        title: randomTitle,
+        introduction: randomIntroduction,
+        ending: randomEnding,
+        questions: shuffledQuestions.slice(0, 3),
       }));
-    }, 6000);
-
-    window.scrollTo(0, 0);
-
-    scenesData.sort(() => Math.random() - 0.5);
-    const selectedScenes = scenesData.slice(0, 5);
-    const randomTitle =
-      abstractTitles[Math.floor(Math.random() * abstractTitles.length)];
-    const randomIntroduction =
-      introductions[Math.floor(Math.random() * introductions.length)];
-    const randomEnding = endings[Math.floor(Math.random() * endings.length)];
-
-    const shuffledQuestions = [...oracleQuestions].sort(
-      () => 0.5 - Math.random()
-    );
-
-    setState((prev) => ({
-      ...prev,
-      scenes: selectedScenes,
-      title: randomTitle,
-      introduction: randomIntroduction,
-      ending: randomEnding,
-      questions: shuffledQuestions.slice(0, 3),
-    }));
+    }
   }, []);
 
   const renderContent = () => {
