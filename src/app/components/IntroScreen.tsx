@@ -1,5 +1,7 @@
+import React from "react";
 import styles from "./IntroScreen.module.css";
 import ContinueButton from "./ContinueButton";
+import P5Background from "./P5Background";
 
 type IntroScreenProps = {
   title: string;
@@ -13,10 +15,15 @@ export default function IntroScreen({
   onContinue,
 }: Readonly<IntroScreenProps>) {
   return (
-    <div className={styles.introScreen}>
-      <h1 className={styles.titleText}>{title}</h1>
-      <div className={styles.introductionText}>{introduction}</div>
-      <ContinueButton onClick={onContinue} text="Continue" />
+    <div style={{ position: "relative", width: "100%", height: "100vh" }}>
+      <P5Background />
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <div className={styles.introScreen}>
+          <h1 className={styles.titleText}>{title}</h1>
+          <div className={styles.introductionText}>{introduction}</div>
+          <ContinueButton onClick={onContinue} text="Continue" />
+        </div>
+      </div>
     </div>
   );
 }

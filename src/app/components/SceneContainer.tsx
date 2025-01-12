@@ -4,6 +4,8 @@ import { Scene } from "../page";
 import { sceneReadings } from "../data/storyContent";
 import ContinueButton from "./ContinueButton";
 import RevealButton from "./RevealButton";
+import React from "react";
+import P5Background from "./P5Background";
 
 type SceneContainerProps = {
   scenes: Scene[];
@@ -122,32 +124,35 @@ export default function SceneContainer({
   const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
 
   return (
-    <>
-      <div className={styles.imageContainer}>
-        {scenes.map((scene, index) =>
-          index === currentSceneIndex ? (
-            <SceneView
-              key={scene.alt}
-              scene={scene}
-              index={index}
-              revealedScenes={revealedScenes}
-              showReading={showReading}
-              selectedReadings={selectedReadings}
-              handleRevealReading={handleRevealReading}
-              handleToggleReading={handleToggleReading}
-              isMobile={isMobile}
-            />
-          ) : null
+    <div style={{ position: "relative", width: "100%", height: "100vh" }}>
+      <P5Background />
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <div className={styles.imageContainer}>
+          {scenes.map((scene, index) =>
+            index === currentSceneIndex ? (
+              <SceneView
+                key={scene.alt}
+                scene={scene}
+                index={index}
+                revealedScenes={revealedScenes}
+                showReading={showReading}
+                selectedReadings={selectedReadings}
+                handleRevealReading={handleRevealReading}
+                handleToggleReading={handleToggleReading}
+                isMobile={isMobile}
+              />
+            ) : null
+          )}
+        </div>
+
+        {currentSceneIndex < scenes.length - 1 ? (
+          <div className={styles.continueButtonWrapper}>
+            <ContinueButton onClick={handleContinue} text="Continue" />
+          </div>
+        ) : (
+          <div className={styles.ending}>{ending}</div>
         )}
       </div>
-
-      {currentSceneIndex < scenes.length - 1 ? (
-        <div className={styles.continueButtonWrapper}>
-          <ContinueButton onClick={handleContinue} text="Continue" />
-        </div>
-      ) : (
-        <div className={styles.ending}>{ending}</div>
-      )}
-    </>
+    </div>
   );
 }
