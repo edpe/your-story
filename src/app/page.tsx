@@ -43,7 +43,7 @@ export default function Home() {
     showStory: false,
     isLoadingReading: false,
     currentSceneIndex: -1,
-    showTransition: false,
+    showTransition: true,
     revealedScenes: {} as { [key: number]: boolean },
     showReading: {} as { [key: number]: boolean },
     selectedReadings: {} as { [key: number]: string },
@@ -83,13 +83,18 @@ export default function Home() {
   };
 
   const handleContinue = () => {
-    setState((prev) => ({
-      ...prev,
-      showTransition: !prev.showTransition,
-      currentSceneIndex: prev.showTransition
+    console.log(state.currentSceneIndex);
+    console.log(state.showTransition);
+    setState((prev) => {
+      const nextSceneIndex = prev.showTransition
         ? prev.currentSceneIndex + 1
-        : prev.currentSceneIndex,
-    }));
+        : prev.currentSceneIndex;
+      return {
+        ...prev,
+        showTransition: !prev.showTransition,
+        currentSceneIndex: nextSceneIndex,
+      };
+    });
   };
 
   useEffect(() => {

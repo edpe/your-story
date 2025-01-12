@@ -40,6 +40,12 @@
   opacity: 1;
 }
 
+@media screen and (max-width: 600px) {
+  .rippleQuestionText {
+    font-size: 4rem;
+  }
+}
+
 @keyframes ripple {
   0% {
     opacity: 0;
@@ -75,7 +81,7 @@
 }
 
 .optionButton {
-  background: transparent;
+  background: rgba(0, 0, 0.8, 0.3);
   border: 2px solid white;
   color: white;
   padding: 1rem 2rem;
@@ -86,9 +92,19 @@
   transition: all 0.3s ease;
 }
 
+@media screen and (max-width: 600px) {
+  .optionButton {
+    background: rgba(0, 0, 0, 0.3);
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
 .optionButton:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 139, 0.1);
   transform: scale(1.05);
+  color: palegoldenrod;
+  border: 2px solid palegoldenrod;
 }
 
 .question {
@@ -101,9 +117,11 @@
   align-items: center;
   justify-content: center;
 }
+
 @media screen and (max-width: 600px) {
   .question {
     margin: 2rem;
+    font-size: 2rem;
   }
 }
 

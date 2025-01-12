@@ -15,11 +15,10 @@
   .continueButton {
     font-size: 1rem; /* Decrease font size for smaller screens */
     padding: 0.5rem 1rem; /* Decrease padding for smaller screens */
-    width: 100%; /* Full width on mobile */
+    max-width: 80%; /* Full width on mobile */
   }
 }
 
 .continueButton:hover {
   background: rgba(255, 255, 255, 0.1);
-  transform: scale(1.05);
 }
