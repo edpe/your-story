@@ -35,7 +35,7 @@
 .rippleQuestionText {
   color: white;
   font-size: 8rem;
-  font-family: "Great Vibes", cursive;
+  font-family: "Charm", serif;
   animation: ripple 6s ease-in-out forwards;
   opacity: 1;
 }
@@ -85,7 +85,7 @@
   border: 2px solid white;
   color: white;
   padding: 1rem 2rem;
-  font-family: "Great Vibes", cursive;
+  font-family: "Charm", serif;
   font-size: 1.5rem;
   cursor: pointer;
   border-radius: 30px;

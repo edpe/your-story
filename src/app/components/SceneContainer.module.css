@@ -24,6 +24,17 @@
   pointer-events: none;
 }
 
+.vignetteGradient.dimmed::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dim the image */
+  pointer-events: none;
+}
+
 .overlayTextLeft,
 .overlayTextRight {
   position: absolute;
@@ -33,8 +44,20 @@
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   pointer-events: none;
-  font-family: "Great Vibes", cursive;
+  font-family: "Charm", serif;
   max-width: 50vw; /* Constrict text to half the viewport width */
+  animation: fadeIn 2s ease-in-out;
+}
+
+@media screen and (max-width: 600px) {
+  .overlayTextLeft,
+  .overlayTextRight {
+    top: 2%;
+    animation: fadeIn 5s ease-in-out;
+    max-width: 90%;
+    font-size: 1.25rem; /* Decrease font size for smaller screens */
+    text-align: center;
+  }
 }
 
 .overlayTextLeft {
@@ -60,16 +83,19 @@
 }
 
 .readingFrame {
+  position: fixed; /* Changed from absolute to fixed */
+  top: 0;
+  left: 0;
   border: 5px solid white;
   outline: 5px solid white;
   outline-offset: -20px;
   padding: 6rem 6rem;
-  font-family: "Great Vibes", cursive;
+  font-family: "Charm", serif;
   font-size: 3rem; /* Slightly bigger font size */
   text-align: center;
   line-height: 1.8;
+  height: 100vh;
   width: 100%;
-  margin: 100px 0;
 }
 
 @media screen and (max-width: 600px) {
@@ -79,6 +105,18 @@
   }
 }
 
+.sceneContainerWrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.sceneContainer {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
 .ending {
   text-align: center;
   color: white;
@@ -86,7 +124,7 @@
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   pointer-events: none;
-  font-family: "Great Vibes", cursive;
+  font-family: "Charm", serif;
   max-width: 90vw; /* Constrict text to half the viewport width */
   margin: 0 auto; /* Center the text */
   display: flex;
@@ -96,7 +134,55 @@
 }
 
 .continueButtonWrapper {
-  display: flex;
-  justify-content: center; /* Center the button horizontally */
+  position: absolute; /* Ensure it is positioned relative to the parent */
+  bottom: 50px; /* Move it up closer to the reveal button */
   width: 100%;
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  gap: 16px; /* Add space between the buttons */
+  z-index: 1; /* Ensure it is below the reveal button */
+  pointer-events: auto; /* Ensure buttons float over the image */
+}
+
+@media screen and (max-width: 600px) {
+  .continueButtonWrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.continueButtonWrapper .continueButton {
+  pointer-events: auto; /* Allow interaction with the button */
+}
+
+.buttonContainer {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .buttonContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.revealButton {
+  margin-bottom: 10px; /* Add some space between the buttons */
+  pointer-events: auto; /* Allow interaction with the button */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

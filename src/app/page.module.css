@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap");
+
 .page {
   --gray-rgb: 0, 0, 0;
   --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
@@ -198,7 +200,7 @@ a.secondary {
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   pointer-events: none;
-  font-family: "Great Vibes", cursive;
+  font-family: "Charm", serif;
   max-width: 90vw; /* Constrict text to half the viewport width */
   margin: 0 auto; /* Center the text */
   display: flex;
@@ -210,14 +212,14 @@ a.secondary {
 .rippleStoryTitleText {
   color: white;
   font-size: 8rem;
-  font-family: "Great Vibes", cursive;
+  font-family: "Charm", serif;
   opacity: 1;
 }
 
 .rippleTitleText {
   color: white;
   font-size: 8rem;
-  font-family: "Great Vibes", cursive;
+  font-family: "Charm", serif;
   animation: ripple 6s ease-in-out forwards;
   opacity: 0;
 }
@@ -232,7 +234,7 @@ a.secondary {
 .rippleLoadingText {
   color: white;
   font-size: 8rem;
-  font-family: "Great Vibes", cursive;
+  font-family: "Charm", serif;
   animation: ripple 6s ease-in-out forwards;
   opacity: 0;
 }
@@ -246,7 +248,7 @@ a.secondary {
 .rippleReadingText {
   color: white;
   font-size: 4rem;
-  font-family: "Great Vibes", cursive;
+  font-family: "Charm", serif;
   animation: ripple 6s ease-in-out forwards;
   opacity: 1;
 }

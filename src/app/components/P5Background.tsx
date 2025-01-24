@@ -22,6 +22,11 @@ const P5Background = () => {
           let particles: Particle[] = [];
           let numParticles = 600;
 
+          const handleShake = () => {
+            const shakeForce = p5.Vector.random2D().mult(5);
+            particles.forEach((particle) => particle.applyForce(shakeForce));
+          };
+
           p.setup = () => {
             p.createCanvas(p.windowWidth, p.windowHeight);
             for (let i = 0; i < numParticles; i++) {
@@ -30,6 +35,7 @@ const P5Background = () => {
               );
             }
             p.noStroke();
+            window.addEventListener("devicemotion", handleShake);
           };
 
           p.windowResized = () => {
@@ -37,7 +43,7 @@ const P5Background = () => {
           };
 
           p.draw = () => {
-            p.background(5, 5, 20);
+            p.background(15, 5, 25);
             for (let particle of particles) {
               particle.flock(particles);
               particle.update();

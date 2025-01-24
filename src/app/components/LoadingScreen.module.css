@@ -14,7 +14,7 @@
 .rippleTitleText {
   color: white;
   font-size: 10rem;
-  font-family: "Great Vibes", cursive;
+  font-family: "Charm", serif;
   animation: ripple 6s ease-in-out forwards;
   opacity: 0;
 }
@@ -36,7 +36,7 @@
 .transitionText {
   color: white;
   font-size: 4rem;
-  font-family: "Great Vibes", cursive;
+  font-family: "Charm", serif;
   font-weight: lighter;
   animation: ripple 6s ease-in-out forwards;
   opacity: 0;

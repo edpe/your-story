@@ -7,7 +7,7 @@
   border-radius: 30px;
   cursor: pointer;
   transition: background 0.3s ease, border-color 0.3s ease;
-  font-family: "Great Vibes", cursive; /* Match font with option buttons */
+  font-family: "Charm", serif; /* Match font with option buttons */
   font-size: 1.5rem; /* Match font size with option buttons */
   margin: 1rem auto; /* Center the button and add margin */
   display: block; /* Make the button a block element */
@@ -18,7 +18,7 @@
   .revealButton {
     font-size: 1rem; /* Decrease font size for smaller screens */
     padding: 0.5rem 1rem; /* Decrease padding for smaller screens */
-    width: 100%; /* Full width on mobile */
+    width: 80%; /* Full width on mobile */
   }
 }
 

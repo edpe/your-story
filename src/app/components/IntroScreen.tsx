@@ -19,9 +19,13 @@ export default function IntroScreen({
       <P5Background />
       <div style={{ position: "relative", zIndex: 1 }}>
         <div className={styles.introScreen}>
-          <h1 className={styles.titleText}>{title}</h1>
-          <div className={styles.introductionText}>{introduction}</div>
-          <ContinueButton onClick={onContinue} text="Continue" />
+          <div className={styles.cardBorder}>
+            <h1 className={styles.titleText}>{title}</h1>
+            <div className={styles.introductionText}>{introduction}</div>
+            <div className={styles.continueButtonWrapper}>
+              <ContinueButton onClick={onContinue} text="Continue" />
+            </div>
+          </div>
         </div>
       </div>
     </div>

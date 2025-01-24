@@ -66,6 +66,7 @@ const SceneView = ({
   handleRevealReading,
   isMobile,
   handleToggleReading,
+  handleContinue,
 }: {
   scene: Scene;
   index: number;
@@ -75,6 +76,7 @@ const SceneView = ({
   handleRevealReading: (index: number, reading: string) => void;
   isMobile: boolean;
   handleToggleReading: (index: number) => void;
+  handleContinue: () => void;
 }) => {
   const randomReading = getRandomReading(scene.alt);
   const text = scene.texts[index % scene.texts.length];
@@ -83,11 +85,14 @@ const SceneView = ({
     return (
       <div className={styles.vignetteGradient}>
         <SceneImage scene={scene} isMobile={isMobile} text={text} />
-        <RevealButton
-          index={index}
-          randomReading={randomReading}
-          handleRevealReading={handleRevealReading}
-        />
+        <div className={styles.continueButtonWrapper}>
+          <RevealButton
+            index={index}
+            randomReading={randomReading}
+            handleRevealReading={handleRevealReading}
+          />
+          <ContinueButton onClick={handleContinue} text="Continue" />
+        </div>
       </div>
     );
   }
@@ -104,7 +109,7 @@ const SceneView = ({
   }
 
   return (
-    <div className={styles.vignetteGradient}>
+    <div className={`${styles.vignetteGradient} ${text ? styles.dimmed : ""}`}>
       <SceneImage scene={scene} isMobile={isMobile} text={text} />
     </div>
   );
@@ -124,34 +129,29 @@ export default function SceneContainer({
   const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100vh" }}>
-      <P5Background />
-      <div style={{ position: "relative", zIndex: 1 }}>
-        <div className={styles.imageContainer}>
-          {scenes.map((scene, index) =>
-            index === currentSceneIndex ? (
-              <SceneView
-                key={scene.alt}
-                scene={scene}
-                index={index}
-                revealedScenes={revealedScenes}
-                showReading={showReading}
-                selectedReadings={selectedReadings}
-                handleRevealReading={handleRevealReading}
-                handleToggleReading={handleToggleReading}
-                isMobile={isMobile}
-              />
-            ) : null
-          )}
-        </div>
-
-        {currentSceneIndex < scenes.length - 1 ? (
-          <div className={styles.continueButtonWrapper}>
-            <ContinueButton onClick={handleContinue} text="Continue" />
+    <div className={styles.sceneContainerWrapper}>
+      <div className={styles.sceneContainer}>
+        <P5Background />
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <div className={styles.imageContainer}>
+            {scenes.map((scene, index) =>
+              index === currentSceneIndex ? (
+                <SceneView
+                  key={scene.alt}
+                  scene={scene}
+                  index={index}
+                  revealedScenes={revealedScenes}
+                  showReading={showReading}
+                  selectedReadings={selectedReadings}
+                  handleRevealReading={handleRevealReading}
+                  handleToggleReading={handleToggleReading}
+                  isMobile={isMobile}
+                  handleContinue={handleContinue}
+                />
+              ) : null
+            )}
           </div>
-        ) : (
-          <div className={styles.ending}>{ending}</div>
-        )}
+        </div>
       </div>
     </div>
   );

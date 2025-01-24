@@ -18,7 +18,9 @@ export default function TransitionScreen({
       <div style={{ position: "relative", zIndex: 1 }}>
         <div className={styles.transitionScreen}>
           <p className={styles.transitionText}>{transitionText}</p>
-          <ContinueButton onClick={onContinue} text="Continue" />
+          <div className={styles.continueButtonWrapper}>
+            <ContinueButton onClick={onContinue} text="Continue" />
+          </div>
         </div>
       </div>
     </div>

@@ -14,6 +14,7 @@ import LoadingScreen from "./components/LoadingScreen";
 import IntroScreen from "./components/IntroScreen";
 import TransitionScreen from "./components/TransitionScreen";
 import SceneContainer from "./components/SceneContainer";
+import EndingScreen from "./components/EndingScreen";
 
 export type Scene = {
   src: string;
@@ -97,6 +98,37 @@ export default function Home() {
     });
   };
 
+  const handleSkip = () => {
+    setState((prev) => ({
+      ...prev,
+      isLoading: false,
+      showQuestions: false,
+      showStory: true,
+      currentSceneIndex: 0,
+      showTransition: false,
+    }));
+  };
+
+  const handleRestart = () => {
+    setState((prev) => ({
+      ...prev,
+      scenes: [],
+      title: "",
+      introduction: "",
+      ending: "",
+      isLoading: true,
+      showQuestions: false,
+      showStory: false,
+      isLoadingReading: false,
+      currentSceneIndex: -1,
+      showTransition: true,
+      revealedScenes: {},
+      showReading: {},
+      selectedReadings: {},
+      questions: oracleQuestions,
+    }));
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setState((prev) => ({
@@ -169,6 +201,8 @@ export default function Home() {
           onContinue={handleContinue}
         />
       );
+    } else if (state.currentSceneIndex === state.scenes.length) {
+      return <EndingScreen ending={state.ending} onRestart={handleRestart} />;
     } else if (state.showTransition) {
       return (
         <TransitionScreen
@@ -201,32 +235,30 @@ export default function Home() {
     }
   };
 
-  if (state.isLoading) {
-    return <LoadingScreen text="Oracle" type="title" />;
-  }
-
-  if (state.isLoadingReading) {
-    return (
-      <LoadingScreen
-        text="The Oracle is preparing your reading . . ."
-        type="transition"
-      />
-    );
-  }
-
   return (
     <main
       className="relative overflow-hidden"
       style={{ backgroundColor: state.showStory ? "black" : "transparent" }}
     >
       {!state.showStory && <div className={styles.backgroundImage}></div>}
+      {!state.showStory && !state.isLoading && (
+        <button onClick={handleSkip} className={styles.skipButton}>
+          Skip
+        </button>
+      )}
+      {state.isLoading && <LoadingScreen text="Oracle" type="title" />}
+      {state.isLoadingReading && (
+        <LoadingScreen
+          text="The Oracle is preparing your reading . . ."
+          type="transition"
+        />
+      )}
       {state.showQuestions && (
         <QuestionFlow
           questions={state.questions}
           onComplete={handleQuestionsComplete}
         />
       )}
-
       {state.showStory && renderContent()}
     </main>
   );
