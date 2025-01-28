@@ -8,11 +8,36 @@
 }
 
 .cardBorder {
-  border: 8px solid white;
-  border-radius: 8px;
-  margin: 1rem auto;
-  height: 97vh;
-  width: 95vw;
+  border: 5px solid white;
+  outline: 5px solid white;
+  outline-offset: -20px;
+  padding: 2rem 2rem;
+  font-family: "Charm", serif;
+  font-size: 3rem; /* Slightly bigger font size */
+  text-align: center;
+  line-height: 1.8;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden; /* Hide overflow */
+}
+
+.cardBorderContent {
+  height: 100%;
+  overflow-y: scroll; /* Allow vertical scrolling */
+  font-size: 1.5rem; /* Increase the font size */
+}
+
+.cardBorderContent::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar for WebKit browsers */
+}
+
+.cardBorderContent {
+  -ms-overflow-style: none; /* Hide the scrollbar for IE and Edge */
+  scrollbar-width: none; /* Hide the scrollbar for Firefox */
+}
+
+.cardBorderContent h3 {
+  margin-top: 2rem; /* Add space between sections */
 }
 
 .titleText {
@@ -56,4 +81,13 @@
     font-size: 1.5rem; /* Decrease font size for smaller screens */
     padding: 2rem 0;
   }
+}
+
+.buttonContainer {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
 }

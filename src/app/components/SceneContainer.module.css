@@ -47,6 +47,7 @@
   font-family: "Charm", serif;
   max-width: 50vw; /* Constrict text to half the viewport width */
   animation: fadeIn 2s ease-in-out;
+  z-index: 3; /* Ensure text is in front of the image */
 }
 
 @media screen and (max-width: 600px) {
@@ -96,12 +97,32 @@
   line-height: 1.8;
   height: 100vh;
   width: 100%;
+  overflow: hidden; /* Hide overflow */
+}
+
+.readingFrameContent {
+  height: 100%;
+  overflow-y: scroll; /* Allow vertical scrolling */
+  font-size: 1.5rem; /* Increase the font size */
+}
+
+.readingFrameContent::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar for WebKit browsers */
+}
+
+.readingFrameContent {
+  -ms-overflow-style: none; /* Hide the scrollbar for IE and Edge */
+  scrollbar-width: none; /* Hide the scrollbar for Firefox */
+}
+
+.readingFrameContent h3 {
+  margin-top: 2rem; /* Add space between sections */
 }
 
 @media screen and (max-width: 600px) {
   .readingFrame {
-    padding: 3rem 3rem; /* Decrease padding for smaller screens */
-    font-size: 1.5rem; /* Decrease font size for smaller screens */
+    padding: 2rem; /* Decrease padding for smaller screens */
+    font-size: 1.5rem; /* Adjust font size for smaller screens */
   }
 }
 
@@ -178,6 +199,37 @@
   pointer-events: auto; /* Allow interaction with the button */
 }
 
+.characterOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  z-index: 0;
+}
+
+.navigationArrowLeft,
+.navigationArrowRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.navigationArrowLeft {
+  left: 10px;
+}
+
+.navigationArrowRight {
+  right: 10px;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -185,4 +237,27 @@
   to {
     opacity: 1;
   }
+}
+
+.topCenterButton {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.bottomCenterButton {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.keywordList {
+  display: inline; /* Make the list inline */
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }

@@ -8,11 +8,36 @@
 }
 
 .cardBorder {
-  border: 8px solid white;
-  border-radius: 8px;
-  margin: 1rem auto;
-  height: 97vh;
-  width: 95vw;
+  border: 5px solid white;
+  outline: 5px solid white;
+  outline-offset: -20px;
+  padding: 2rem 2rem;
+  font-family: "Charm", serif;
+  font-size: 3rem; /* Slightly bigger font size */
+  text-align: center;
+  line-height: 1.8;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden; /* Hide overflow */
+}
+
+.cardBorderContent {
+  height: 100%;
+  overflow-y: scroll; /* Allow vertical scrolling */
+  font-size: 1.5rem; /* Increase the font size */
+}
+
+.cardBorderContent::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar for WebKit browsers */
+}
+
+.cardBorderContent {
+  -ms-overflow-style: none; /* Hide the scrollbar for IE and Edge */
+  scrollbar-width: none; /* Hide the scrollbar for Firefox */
+}
+
+.cardBorderContent h3 {
+  margin-top: 2rem; /* Add space between sections */
 }
 
 .endingText {
@@ -35,8 +60,36 @@
   }
 }
 
-.continueButtonWrapper {
+.buttonContainer {
+  position: absolute;
+  bottom: 50px; /* Raise the button a bit higher */
+  width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
+  z-index: 2;
+}
+
+.navigationArrowLeft {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.restartButton {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.restartButton:hover {
+  background-color: #555;
 }
