@@ -55,13 +55,6 @@ const getReadingForSceneAndArchetype = (
     archetypeName.replace(/^The\s+/i, "")
   ) as keyof (typeof sceneReadings)[typeof sceneKey];
 
-  console.log("sceneAlt:", sceneAlt);
-  console.log("archetypeName:", archetypeName);
-  console.log("sceneKey:", sceneKey);
-  console.log("archetypeKey:", archetypeKey);
-  console.log("sceneReadings:", sceneReadings[sceneKey]);
-  console.log("reading:", sceneReadings[sceneKey]?.[archetypeKey]);
-
   return (
     sceneReadings[sceneKey]?.[archetypeKey] ||
     "No reading available for this combination."
@@ -178,7 +171,6 @@ export default function SceneContainer({
   handleToggleReading,
   handleContinue,
   handlePrevious,
-  ending,
   archetypes,
   handleToggleSceneInfo,
   handleToggleCharacterInfo,
