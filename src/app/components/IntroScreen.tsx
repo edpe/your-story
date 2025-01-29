@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./IntroScreen.module.css";
 import P5Background from "./P5Background";
-import GenericButton from "./GenericButton";
+import GenericButton from "./Button";
 
 type IntroScreenProps = {
   title: string;

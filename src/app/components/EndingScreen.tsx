@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./EndingScreen.module.css";
 import P5Background from "./P5Background";
 import { FaArrowLeft } from "react-icons/fa";
-import GenericButton from "./GenericButton";
+import GenericButton from "./Button";
 type EndingScreenProps = {
   ending: string;
   onRestart: () => void;

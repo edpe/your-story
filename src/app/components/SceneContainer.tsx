@@ -5,7 +5,7 @@ import { sceneReadings, getRandomArchetype } from "../data/storyContent";
 import React, { useState, useEffect } from "react";
 import P5Background from "./P5Background";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import GenericButton from "./GenericButton";
+import GenericButton from "./Button";
 
 export type Archetype = {
   src: string;

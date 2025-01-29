@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./GenericButton.module.css";
+import styles from "./Button.module.css";
 
 type GenericButtonProps = {
   onClick: () => void;
@@ -14,7 +14,7 @@ export default function GenericButton({
 }: GenericButtonProps) {
   return (
     <button
-      className={`${styles.continueButton} ${className || ""}`}
+      className={`${styles.genericButton} ${className || ""}`}
       onClick={(e) => {
         e.preventDefault();
         onClick();

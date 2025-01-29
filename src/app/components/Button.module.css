@@ -1,0 +1,24 @@
+.genericButton {
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid white;
+  color: white;
+  padding: 1rem 2rem;
+  font-family: "Charm", serif;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  width: 300px;
+}
+
+@media screen and (max-width: 600px) {
+  .genericButton {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    max-width: 80%;
+  }
+}
+
+.genericButton:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
